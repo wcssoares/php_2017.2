@@ -5,46 +5,46 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import entidade.Produto;
+import entidade.Usuario;
 
-// ProdutoDAO herdara os métodos de DAO
-
-public class ProdutoDAO  extends DAO{
+public class usuarioDAO extends DAO{
 	
 	private Connection conn;
 	
-	public ProdutoDAO() {
-		// atribui a conexão aberta ao atributo conn
+	public usuarioDAO() {
 		try {
 			conn = abreConexao();
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 	
-	public void salvar(Produto p) throws SQLException {
+	public void salvar(Usuario u) throws SQLException {
 		PreparedStatement stmt = null;
 		
 		try {
 			stmt = conn.prepareStatement("insert into produto values (null, ?, ?)");
-			
-			stmt.setString(1,  p.getNome());
-			stmt.setInt(2, p.getQuantidade());
+			stmt.setString(1, u.getNome());
+			stmt.setString(2, u.getTelefone());
+			stmt.setInt(3, u.getIdade());
+			stmt.setDouble(4, u.getAltura());
+			stmt.setString(5, u.getSexo());
 			
 			int flag = stmt.executeUpdate();
 			
 			if(flag == 0)
-				throw new SQLException("Erro ao gravar no banco");
-		}finally {
+				throw new SQLException("Erro ao gravar no banco");	
+		} finally {
 			if(conn != null) 
 				conn.close();
 			if(stmt != null) 
 				stmt.close();
 		}
 	}
-	
+		
 	public void excluir(long id) throws SQLException {
 		PreparedStatement stmt = null;
-		
+			
 		try {
 			stmt = conn.prepareStatement("Delete from produto where id = ?");
 			
@@ -53,7 +53,7 @@ public class ProdutoDAO  extends DAO{
 			int flag = stmt.executeUpdate();
 			
 			if(flag == 0)
-				throw new SQLException("Houve um erro ao excluir o registro do banco.");
+				throw new SQLException("Houve um erro ao excluir o registro do banco.");		
 		} finally {
 			if(conn != null)
 				conn.close();
@@ -62,15 +62,17 @@ public class ProdutoDAO  extends DAO{
 		}
 	}
 	
-	public  void atualizar(Produto p) throws SQLException {
+	public  void atualizar(Usuario u) throws SQLException {
 		PreparedStatement stmt = null;
 		
 		try {
-			stmt = conn.prepareStatement("Update Produto set nome = ? , Quantidade = ? where id = ?");
-			
-			stmt.setString(1, p.getNome());
-			stmt.setInt(2, p.getQuantidade());
-			stmt.setLong(3, p.getId());
+			stmt = conn.prepareStatement("Update Usuario set nome = ? , telefone = ?, idade = ?, altura = ?, sexo = ? where id = ?");
+			stmt.setString(1, u.getNome());
+			stmt.setString(2, u.getTelefone());
+			stmt.setInt(3, u.getIdade());
+			stmt.setDouble(4, u.getAltura());
+			stmt.setString(5, u.getSexo());
+			stmt.setLong(6, u.getId());
 			
 			
 			int flag = stmt.executeUpdate();
@@ -85,17 +87,19 @@ public class ProdutoDAO  extends DAO{
 		}
 	}
 	
-	
 	public static void main(String[] args) {
-		ProdutoDAO dao = new ProdutoDAO();
+		usuarioDAO dao = new usuarioDAO();
 		
-		Produto produto = new Produto();
-		produto.setNome("iPhone 7");
-		produto.setQuantidade(10);
+		Usuario usuario = new Usuario();
+		usuario.setNome("Willian");
+		usuario.setTelefone("37084184");
+		usuario.setIdade(21);
+		usuario.setAltura(1.90);
+		usuario.setSexo("Masculino");
 		
 		try {
-			dao.salvar(produto);
-			System.out.println("Produto salvo com sucesso!");
+			dao.salvar(usuario);
+			System.out.println("Usuário salvo com sucesso!");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

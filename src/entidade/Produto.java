@@ -49,10 +49,21 @@ public class Produto implements Serializable {
 		return quantidade;
 	}
 	
+	// sobrescrita
+	
+	@Override
+	public String toString() {
+		return id + ", " +nome +", " + quantidade;  
+	}
+    
+	
 	public static void main(String[] args) {
 		// utilizando o construtor sem argumentos
 		Produto p1 = new Produto();
 		// utilizando o construtor com argumentos
 		Produto p2 = new Produto(1, "Camisa", 10);
+		
+		System.out.println(p2);
 	}
 }
+
