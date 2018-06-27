@@ -4,12 +4,12 @@ public class TestePessoa {
 	// main() -> escreve main + ctrl + espaço
 	// identar o código -> ctrl + shift + F
 	public static void main(String[] args) {
-		Pessoa willian = new Pessoa();
+		Pessoa willian = new Cliente();
 		willian.setId(1);
 		willian.setNome("Willian");
 		willian.setCpf("123.456.789-00");
 		
-		Pessoa joao = new Pessoa();
+		Pessoa joao = new Cliente();
 		joao.setId(1);
 		joao.setNome("Willian");
 		joao.setCpf("123.456.789-00");
