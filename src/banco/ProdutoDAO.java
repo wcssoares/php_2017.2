@@ -57,9 +57,6 @@ public class ProdutoDAO {
 				stmt.close();
 			if (conn != null)
 				conn.close();
-		}
-		
-		
-		
+		}	
 	}
 }

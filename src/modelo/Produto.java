@@ -100,4 +100,9 @@ public class Produto implements Serializable {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void setNome(String string) {
+		// TODO Auto-generated method stub
+		
+	}
 }
